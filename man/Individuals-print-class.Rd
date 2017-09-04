@@ -19,4 +19,3 @@ print Individuals informations
 data(maize_65)
 print(maize.individuals)
 }
-

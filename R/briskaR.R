@@ -41,8 +41,8 @@
 #' @details \tabular{ll}{
 #'          Package: \tab briskaR\cr
 #'          Type: \tab Package\cr
-#'          Version: \tab 0.1.0\cr
-#'          Date: \tab 2016-10-07\cr
+#'          Version: \tab 0.1.1\cr
+#'          Date: \tab 2017-09-04\cr
 #'          License: \tab GPL (>=2)\cr
 #'          }
 #'

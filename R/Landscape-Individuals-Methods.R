@@ -93,7 +93,7 @@ setMethod(f="plot",
 #                 p[100]=rgb(0,0,0,alpha=0)
 #                 temp<-objectT[time,,]
 #                 temp[which(temp<=0)] <- NA
-#                 r<-raster(as.matrix(temp),crs=CRS(BRISKAR_INTERN_PROJECTION))
+#                 r<-raster(as.matrix(temp),crs=CRS(.briskar_env$BRISKAR_INTERN_PROJECTION))
 #                 extent(r)<-extent(x@xmin,x@xmax,x@ymin,x@ymax)
 #                 if( !is.na(proj4string(x@thelandscape)) ) { r<-projectRaster(r,crs=proj4string(x@thelandscape)) }
 #                 raster::image(r,col=p[length(p):1],useRaster=F,add=T,bg="transparent")

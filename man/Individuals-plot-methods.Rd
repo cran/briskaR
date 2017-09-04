@@ -4,8 +4,8 @@
 \name{Individuals plot}
 \alias{Individuals plot}
 \alias{plot,Individuals,ANY-method}
-\alias{plot,Individuals,num-method}
 \alias{plot,Individuals,numeric-method}
+\alias{plot,Individuals,num-method}
 \title{Plot method for Individuals-class}
 \usage{
 \S4method{plot}{Individuals,ANY}(x, y, add = F, ..., plot.legend = TRUE)
@@ -45,4 +45,3 @@ plot(maize.individuals,61)
 #individuals at time 61 with the landscape
 plot(maize.landscape,maize.individuals,time=61)
 }
-

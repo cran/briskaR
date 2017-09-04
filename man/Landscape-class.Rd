@@ -26,7 +26,7 @@ Class \code{Landscape} defines a landscape
 
 \item{\code{n}}{Number of fields in the landscape}
 }}
+
 \seealso{
 \link{simulateLandscape} , \link{loadLandscape} , \link{loadLandscapeSIG}
 }
-

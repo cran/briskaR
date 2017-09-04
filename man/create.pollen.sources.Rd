@@ -30,4 +30,3 @@ create.pollen.sources(nbOfSource=20,numberOfDay=15)
 pollen.emission<-create.pollen.sources(nbOfSource=1,numberOfDay=20)
 plot(pollen.emission[1,],xlab="time unites",ylab="maize crop emission")
 }
-

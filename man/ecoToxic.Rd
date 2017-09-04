@@ -56,4 +56,3 @@ plot(maize.landscape,ind2,objectT=tox,numind=1)
 }
 
 }
-

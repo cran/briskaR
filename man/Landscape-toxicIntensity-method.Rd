@@ -4,6 +4,8 @@
 \name{toxicIntensity}
 \alias{toxicIntensity}
 \alias{toxicIntensity,Landscape-method}
+\alias{toxicIntensity}
+\alias{toxicIntensity,Landscape-method}
 \title{toxicIntensity Method}
 \usage{
 toxicIntensity(objectL, ...)
@@ -67,4 +69,3 @@ image(x=1:raster.size, y=1:raster.size, z=tox[30,,])
 plot(maize.landscape,objectT=tox,time=61)
 }
 }
-

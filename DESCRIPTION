@@ -2,8 +2,8 @@ Package: briskaR
 Type: Package
 Encoding: UTF-8
 Title: Biological Risk Assessment
-Version: 0.1.0
-Date: 2016-10-07
+Version: 0.1.1
+Date: 2017-09-04
 Authors@R: c(person("Emily", "Walker", role = "aut", email = "emily.walker@inra.fr"),
 	      person("Jean-Francois", "Rey", role = c("aut","cre"), email = "jean-francois.rey@inra.fr"),
 	      person("Melen", "Leclerc", role = "aut", email = "melen.leclerc@inra.fr"),
@@ -29,13 +29,13 @@ Imports: sp (>= 1.0-17), stats (>= 3.0.2), rgeos(>= 0.3), fields(>=
         7.1), MASS(>= 7.3.29), deldir(>= 0.1), pracma(>= 1.8.3),
         raster(>= 2.3.0), fftwtools(>= 0.9.6), mvtnorm(>= 1.0.2), rgdal
         (>= 0.9)
-Suggests: knitr(>= 1.11), rmarkdown(>= 0.8.1)
+Suggests: knitr(>= 1.11), rmarkdown(>= 0.8.1), testthat(>= 1.0.0)
 Collate: '0briskaR.R' 'Class-Individuals.R' 'Class-Landscape.R'
         'Individuals-Methods.R' 'simulPrecip.R' 'toxicIntensity.R'
         'Landscape-Methods.R' 'Landscape-Individuals-Methods.R'
         'briskaR.R' 'pollen-data.R' 'ecoToxic.R' 'demo.R'
-RoxygenNote: 5.0.1
+RoxygenNote: 6.0.1
 NeedsCompilation: no
-Packaged: 2016-10-11 09:28:54 UTC; jfrey
+Packaged: 2017-09-04 12:25:55 UTC; jfrey
 Repository: CRAN
-Date/Publication: 2016-10-11 12:42:45
+Date/Publication: 2017-09-04 12:46:25 UTC

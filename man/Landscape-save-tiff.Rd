@@ -32,4 +32,3 @@ ti<-toxicIntensity(maize.landscape,maize.emitted_pollen)
 saveIntoFile(maize.landscape,ti,filename="ParticlesDispersion.tiff",format="GTiff",overwrite=T)
 }
 }
-

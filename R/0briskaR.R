@@ -22,31 +22,54 @@
 # 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #
 
+#' LAMBERT_93
+#' 
+#' SIG projection Lambert_93 references "+init=epsg:2154" PROJ.4
+#' 
+#' @export
 LAMBERT_93 <- "+init=epsg:2154"
-BRISKAR_INTERN_PROJECTION <- LAMBERT_93
+
+#BRISKAR_INTERN_PROJECTION <- NULL
+## briskaR environnement for package varaibles
+.briskar_env <- new.env()
+.briskar_env$BRISKAR_INTERN_PROJECTION <- LAMBERT_93
 
 #' @title Load an internal working projection PROJ.4
-#' @name LoadInternProjection
+#' @name briskaRLoadInternProjection
 #' @description Will load a projection as internal package working projection
 #' @param proj A character string of projection arguments, must be in the PROJ.4 documentation
 # @rdname briskaR-methods
 #' @export 
-briskaRLoadInternProjection <- function (proj)
+briskaRSetInternProjection <- function (proj=LAMBERT_93)
 {
-  BRISKAR_INTERN_PROJECTION <<- proj
-  tryCatch(CRS(BRISKAR_INTERN_PROJECTION),
+  #unlockBinding("BRISKAR_INTERN_PROJECTION",env=getNamespace("briskaR"))
+  #BRISKAR_INTERN_PROJECTION <<- proj
+  #lockBinding("BRISKAR_INTERN_PROJECTION",env=getNamespace("briskaR"))
+  .briskar_env$BRISKAR_INTERN_PROJECTION <- proj
+  tryCatch(temp <- CRS(.briskar_env$BRISKAR_INTERN_PROJECTION),
            error=function(cond) {
              message(cond)
-             BRISKAR_INTERN_PROJECTION = LAMBERT_93
+             .briskar_env$BRISKAR_INTERN_PROJECTION <- LAMBERT_93
              return(NA)
            },
            warning=function(cond) {
              message(cond)
-             BRISKAR_INTERN_PROJECTION = LAMBERT_93
+             .briskar_env$BRISKAR_INTERN_PROJECTION <- LAMBERT_93
              return(NULL)
            },
            finally={
-             message("\nSet BriskaR working projection to ", BRISKAR_INTERN_PROJECTION)
-          }
+             message("\nSet BriskaR working projection to ", .briskar_env$BRISKAR_INTERN_PROJECTION)
+           }
   )
+  return(.briskar_env$BRISKAR_INTERN_PROJECTION)
+}
+
+#' @title Get the internal working projection PROJ.4
+#' @name GetInternProjection
+#' @description Will print and return the internal projection of briskaR package
+#' @export
+briskaRGetInternProjection <- function() {
+  message("\nBriskaR working projection is set to ", .briskar_env$BRISKAR_INTERN_PROJECTION)
+  print(CRS(.briskar_env$BRISKAR_INTERN_PROJECTION))
+  return(.briskar_env$BRISKAR_INTERN_PROJECTION)
 }

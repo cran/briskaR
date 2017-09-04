@@ -52,7 +52,7 @@ simulateInitialPartition <- function(n=500,prop=0.4,range=10,xmin=0,xmax=5000,ym
   
   res <- new("Landscape")
   res@thelandscape <- map
-  #proj4string(res@thelandscape)<-CRS(BRISKAR_INTERN_PROJECTION)
+  #proj4string(res@thelandscape)<-CRS(.briskar_env$BRISKAR_INTERN_PROJECTION)
   res@xmin <- xmin
   res@xmax <- xmax
   res@ymin <- ymin
@@ -143,14 +143,15 @@ setMethod(f="plot",
             }
             
             plot(x@thelandscape,add=add,...)
-            if(sum(x@thelandscape@data$neutral==1))plot(x@thelandscape[which(x@thelandscape@data$neutral==1),],col=rgb(255,255,255,alpha=alpha,maxColorValue = 255),add=TRUE,...)
+            if(sum(x@thelandscape@data$neutral==1))plot(x@thelandscape[row.names(x@thelandscape@data[which(x@thelandscape@data$neutral==1),]),],col=rgb(255,255,255,alpha=alpha,maxColorValue = 255),add=TRUE,...)
             if(sum(x@thelandscape@data$sources==1)) {
-              plot(x@thelandscape[which(x@thelandscape@data$sources==1),],col=rgb(255,255,255,alpha=alpha,maxColorValue = 255),add=TRUE,...)
-              plot(x@thelandscape[which(x@thelandscape@data$sources==1),],add=TRUE,density=c(9,9),angle=c(-45,45),...)
-              plot(x@thelandscape[which(x@thelandscape@data$sources==1),],add=TRUE,density=c(9,9),angle=c(45,-45),...)
+              plot(x@thelandscape[row.names(x@thelandscape@data[which(x@thelandscape@data$sources==1),]),],col=rgb(255,255,255,alpha=alpha,maxColorValue = 255),add=TRUE,...)
+              plot(x@thelandscape[row.names(x@thelandscape@data[which(x@thelandscape@data$sources==1),]),],add=TRUE,density=c(9,9),angle=c(-45,45),...)
+              plot(x@thelandscape[row.names(x@thelandscape@data[which(x@thelandscape@data$sources==1),]),],add=TRUE,density=c(9,9),angle=c(45,-45),...)
             }
+            
             if( "receptors" %in% colnames(x@thelandscape@data) && sum(x@thelandscape@data$receptors==1)) {
-              plot(x@thelandscape[which(x@thelandscape@data$receptors==1),],col=rgb(138,43,226,alpha=alpha,maxColorValue = 255),add=TRUE,border=rgb(138,43,226,alpha=alpha,maxColorValue = 255),...)
+              plot(x@thelandscape[row.names(x@thelandscape@data[which(x@thelandscape@data$receptors==1),]),],col=rgb(138,43,226,alpha=alpha,maxColorValue = 255),add=TRUE,border=rgb(138,43,226,alpha=alpha,maxColorValue = 255),...)
             }
             if(plot.legend == TRUE) {
             
@@ -167,7 +168,7 @@ setMethod(f="plot",
               r<-raster(as.matrix(temp))
               extent(r)<-extent(x@xmin,x@xmax,x@ymin,x@ymax)
               if( !is.na(proj4string(x@thelandscape)) ) {
-                crs(r)<-BRISKAR_INTERN_PROJECTION
+                crs(r)<-.briskar_env$BRISKAR_INTERN_PROJECTION
                 r<-projectRaster(r,crs=proj4string(x@thelandscape))
               }
               #plot(r,col=p[length(p):1],useRaster=F,add=T,bg="transparent")
@@ -324,12 +325,16 @@ setMethod(f="simulateThickMargins",
             margin_ids=as.character(seq(max(as.numeric(ids))+1,max(as.numeric(ids))+length(field_margin@polygons)))
             nb_margins=length(field_margin@polygons)
            
-            receptors<-rep(0,nrow(objectL@thelandscape@data)+nb_margins)
-            #receptors[(as.numeric(margin_ids)+1)]=1
-            receptors[(nrow(objectL@thelandscape@data)+1):(nrow(objectL@thelandscape@data)+nb_margins)]<-1
-            
             fields<-gDifference(objectL@thelandscape,field_margin,byid=TRUE,id=ids)
             fields@bbox<-objectL@thelandscape@bbox
+            fields_data <- objectL@thelandscape@data[sapply(fields@polygons,slot,"ID"),]
+            
+            receptors<-rep(0,nrow(fields_data)+nb_margins)
+            #receptors[(as.numeric(margin_ids)+1)]=1
+            receptors[(nrow(fields_data)+1):(nrow(fields_data)+nb_margins)]<-1
+            
+            
+            ## TODO extraire les polygons et dataframe de fields#
             
             # change margins ID
             for(mp in 1:nb_margins) {
@@ -338,7 +343,7 @@ setMethod(f="simulateThickMargins",
             # Add margin to polygons landscape
             temp_landscape<-SpatialPolygons(c(fields@polygons,field_margin@polygons))
             
-            new_data_frame<-cbind(rbind(objectL@thelandscape@data,data.frame("sources"=rep(0,nb_margins),"neutral"=rep(0,nb_margins),row.names = margin_ids[])),"receptors"=receptors)
+            new_data_frame<-cbind(rbind(fields_data,data.frame("sources"=rep(0,nb_margins),"neutral"=rep(0,nb_margins),row.names = margin_ids[])),"receptors"=receptors)
             
             new_landscape<-SpatialPolygonsDataFrame(temp_landscape, new_data_frame)
             new_landscape@bbox<-objectL@thelandscape@bbox
@@ -394,7 +399,9 @@ setGeneric(name="getSPSources",
 setMethod(f="getSPSources",
           signature="Landscape",
           definition=function(object) {
-            return(object@thelandscape[which(object@thelandscape@data$sources==1),])            
+            return(object@thelandscape[which(object@thelandscape@data$sources==1),])
+            # use row.names should never append due to SpatialPolygonsDataFrame constructions polygons IDs match data.frame names => same index
+            #return(object@thelandscape[row.names(object@thelandscape@data[which(object@thelandscape@data$sources==1),]),])            
           }
 )
 
@@ -439,7 +446,7 @@ setMethod(f="getSPReceptors",
 loadLandscape <- function(sp,data) {
   res <- new("Landscape")
   
-  sptemp<-spTransform(sp,CRSobj = CRS(BRISKAR_INTERN_PROJECTION))
+  sptemp<-spTransform(sp,CRSobj = CRS(.briskar_env$BRISKAR_INTERN_PROJECTION))
   newsp<-SpatialPolygons(sptemp@polygons)
   proj4string(newsp)<-proj4string(sptemp)
   
@@ -479,7 +486,7 @@ loadLandscapeSIG <- function(dsn,layer,format = TRUE) {
   ogr <- readOGR(dsn,layer)
   res <- new("Landscape")
   
-  res@thelandscape<-spTransform(ogr,CRSobj = CRS(BRISKAR_INTERN_PROJECTION))
+  res@thelandscape<-spTransform(ogr,CRSobj = CRS(.briskar_env$BRISKAR_INTERN_PROJECTION))
   res@n <- length(res@thelandscape@polygons)
   res@xmin <- res@thelandscape@bbox[1]
   res@xmax <- res@thelandscape@bbox[3]

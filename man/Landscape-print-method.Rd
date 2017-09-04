@@ -19,4 +19,3 @@ Print Method for Landscape
 data(maize_65)
 print(maize.landscape)
 }
-

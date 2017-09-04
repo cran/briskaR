@@ -41,4 +41,3 @@ land <- simulateInitialPartition(n=500,prop=0.4,range=10,xmin=0,xmax=5000,ymin=0
 plot(land)
 }
 }
-

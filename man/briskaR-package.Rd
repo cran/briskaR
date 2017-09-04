@@ -3,9 +3,9 @@
 \docType{package}
 \encoding{UTF-8}
 \name{briskaR-package}
+\alias{briskaR-package}
 \alias{_PACKAGE}
 \alias{briskaR}
-\alias{briskaR-package}
 \title{Biological Risk Assessment}
 \description{
 A spatio-temporal exposure-hazard model for assessing biological risk and impact.
@@ -16,8 +16,8 @@ a dispersal kernel for the dissemination of contaminants and an ecotoxicological
 \tabular{ll}{
          Package: \tab briskaR\cr
          Type: \tab Package\cr
-         Version: \tab 0.1.0\cr
-         Date: \tab 2016-10-07\cr
+         Version: \tab 0.1.1\cr
+         Date: \tab 2017-09-04\cr
          License: \tab GPL (>=2)\cr
          }
 
@@ -37,6 +37,9 @@ library("briskaR")
 demo.pollen.run() 
 }
 }
+\seealso{
+\code{\link{demo.pollen.run}}
+}
 \author{
 Emily Walker \email{emily.walker@inra.fr}
 
@@ -50,10 +53,6 @@ Marc Bourotte \email{marc.bourotte@inra.fr}
 
 Maintainer: Jean-Francois REY \email{jean-francois.rey@inra.fr}
 }
-\seealso{
-\code{\link{demo.pollen.run}}
-}
 \keyword{model}
 \keyword{spatial}
 \keyword{survival}
-

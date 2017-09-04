@@ -2,9 +2,9 @@
 % Please edit documentation in R/Landscape-Methods.R
 \docType{methods}
 \name{getSPSources}
-\alias{Landscape,getSPSources-method}
 \alias{getSPSources}
 \alias{getSPSources,Landscape-method}
+\alias{Landscape,getSPSources-method}
 \title{Method to get SpatialPolygons Sources from a Landscape}
 \usage{
 getSPSources(object, ...)
@@ -30,4 +30,3 @@ data(maize_65)
 sources<-getSPSources(maize.landscape)
 plot(sources)
 }
-

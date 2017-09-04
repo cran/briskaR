@@ -2,6 +2,9 @@
 library("briskaR")
 
 ## ----echo=TRUE,fig.width=7,fig.height=7,eval=FALSE-----------------------
+#  ## Set briskaR working intern projection to LAMBERT 93 (default)
+#  briskaRSetInternProjection(LAMBERT_93)
+#  
 #  ## load the maize_65 data set incorporated in briskaR
 #  ## in which polygons are either maize or non-maize fields
 #  data(maize_65)

@@ -48,4 +48,3 @@ plot(maize.landscape,ind)
 \seealso{
 \link{loadIndividuals}
 }
-

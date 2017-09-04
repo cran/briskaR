@@ -40,4 +40,3 @@ data(maize_65)
 #get individual 99 informations at time 30
 maize.individuals[99,30]
 }
-

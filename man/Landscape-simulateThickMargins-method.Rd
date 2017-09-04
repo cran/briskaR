@@ -44,4 +44,3 @@ plot(landscape.margin) }
 \seealso{
 \link{simulateInitialPartition} and \link{simulateLandscape}
 }
-

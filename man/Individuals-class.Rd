@@ -42,7 +42,7 @@ Objects can be created by calling of the allocator new("Individuals", ...), or (
 
 \item{\code{maxtime}}{End simulation time}
 }}
+
 \seealso{
 \code{\link{simulateIndividuals}} , \code{\link{loadIndividuals}}
 }
-

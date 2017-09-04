@@ -100,6 +100,11 @@ setMethod(f="toxicIntensity",
               return(NULL)
             }
             
+            if( ! all(row.names(sources) == row.names(toxic_emission))) {
+              cat("Sources ID and toxic_emission ID do not match")
+              return(NULL)
+            }
+            
             if(ncol(toxic_emission) != maxtime) {
               cat("srcdist col number differ from maxtime")
               return(NULL)
@@ -154,10 +159,11 @@ setMethod(f="toxicIntensity",
             size_domain<-objectL@xmax-objectL@xmin
             
             message("compute field... ",appendLF=F)
+            rb_env <- rb
             for(i in row.names(sources)) {
               message(i,"... ",appendLF=F)
               flush.console()
-              rb_temp<-rb
+              rb_temp<-rb_env
               #rb_temp[which(rb_temp@data@values!=i)]<-NA
               rb_temp[!rb_temp@data@values%in%as.numeric(i)] <- NA
               rb_temp[rb_temp@data@values%in%as.numeric(i)] <- 1
@@ -206,7 +212,7 @@ plotLandscapetoxicIntensity<-function(objectL,objectT,time) {
   p[100]=rgb(0,0,0,alpha=0)
   temp<-objectT[time,,]
   temp[which(temp<=0)] <- NA
-  r<-raster(as.matrix(temp),crs=CRS(BRISKAR_INTERN_PROJECTION))
+  r<-raster(as.matrix(temp),crs=CRS(.briskar_env$BRISKAR_INTERN_PROJECTION))
   extent(r)<-extent(objectL@xmin,objectL@xmax,objectL@ymin,objectL@ymax)
   if( !is.na(proj4string(objectL@thelandscape)) ) { r<-projectRaster(r,crs=proj4string(objectL@thelandscape)) }
   raster::image(r,col=p[length(p):1],useRaster=F,add=T,bg="transparent")

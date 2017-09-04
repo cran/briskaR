@@ -38,4 +38,3 @@ df <- data.frame("dob"=c(1,8),"life_duration"=c(20,20),
 ind <- loadIndividuals(objectL=maize.landscape,sp=coordinates,data=df,mintime=1,maxtime=61)
 plot(maize.landscape,ind)
 }
-

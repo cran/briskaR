@@ -31,4 +31,3 @@ data(maize_65)
 life<-getIndividualsLife(maize.individuals)
 matplot(1:10,life[1:10,],type='l',col=1:5,xlab="source",ylab="states")
 }
-

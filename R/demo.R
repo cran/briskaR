@@ -51,6 +51,9 @@ demo.pollen.run<-function(nb_fields=100,max_size=5000,raster_size=2^10,nb_ind=10
   time.min = 1  #first day
   time.max = 30  #last day
   
+  # set inner projection to LAMBERT 93
+  briskaRSetInternProjection("+init=epsg:2154")
+  
   # simulate a landscape of size 5000x5000 meters with 100 fields and 0.4% of toxic fields
   l<-simulateInitialPartition(nb_fields,0.4,10,0,max_size,0,max_size)
 

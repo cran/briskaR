@@ -52,4 +52,3 @@ plot(land) }
 \seealso{
 \link{simulateInitialPartition} and \link{simulateThickMargins}
 }
-

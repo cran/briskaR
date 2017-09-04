@@ -51,4 +51,3 @@ ind2<-ecoToxic(maize.landscape,maize.individuals,objectT=tox,maxtime=61)
 plot(maize.landscape,ind2,objectT=tox,numind=1)
 }
 }
-

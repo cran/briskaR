@@ -17,4 +17,3 @@ Show Method for Landscape
 data(maize_65)
 maize.landscape 
 }
-

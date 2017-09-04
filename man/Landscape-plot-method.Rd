@@ -44,4 +44,3 @@ attr(tox,"class") <- "ToxicIntensityRaster"
 plot(maize.landscape,objectT=tox,time=61)
 }
 }
-

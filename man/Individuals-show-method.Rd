@@ -17,4 +17,3 @@ print a summary of Individuals information (the 10 first individuals)
 data(maize_65)
 maize.individuals
 }
-

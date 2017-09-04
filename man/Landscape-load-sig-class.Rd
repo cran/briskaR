@@ -25,4 +25,3 @@ land<-loadLandscapeSIG("/path/to/directory/","fileName")
 plot(land)
 }
 }
-
