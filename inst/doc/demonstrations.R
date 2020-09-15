@@ -1,130 +1,259 @@
-## ---- echo=F-------------------------------------------------------------
+## ---- echo=FALSE--------------------------------------------------------------
+knitr::opts_chunk$set(fig.height = 6,
+                      fig.width = 6,
+                      fig.align = "center")
+
+## ----loadPackages, echo=FALSE, message=FALSE----------------------------------
+# 1. Load the main package
 library("briskaR")
+## Set briskaR working intern projection to LAMBERT 93 (default)
+# briskaRSetInternProjection(LAMBERT_93)
 
-## ----echo=TRUE,fig.width=7,fig.height=7,eval=FALSE-----------------------
-#  ## Set briskaR working intern projection to LAMBERT 93 (default)
-#  briskaRSetInternProjection(LAMBERT_93)
-#  
-#  ## load the maize_65 data set incorporated in briskaR
-#  ## in which polygons are either maize or non-maize fields
-#  data(maize_65)
-#  
-#  ## then, randomly assign the GMO and non-GMO marks to maize fields
-#  ## non-maize fields being considered as receptors
-#  initial_types=maize_65@thelandscape@data
-#  nb_maize=sum(initial_types[,1])
-#  nb_non_maize=sum(initial_types[,2])
-#  types=as.data.frame(cbind(0,NA,initial_types[,2]))
-#  names(types)=c("sources","neutral","receptors")
-#  GM_fields=sample((1:nrow(types))[initial_types[,1]==1],
-#  0.4*(nb_maize+nb_non_maize),replace=FALSE)
-#  types[GM_fields,1]=1
-#  types[,2]=1*(types[,1]==0 & types[,3]==0)
-#  
-#  ## generate land1 with the new marks for polygons
-#  land1=maize_65
-#  land1@thelandscape@data=types
-#  
-#  ## transform receptors at the border of the study domain
-#  ## into neutral cells
-#  border_size=200
-#  for(i in 1:land1@n){
-#    if(land1@thelandscape@data[i,3]==1){
-#      x0=land1@thelandscape@polygons[[i]]@Polygons[[1]]@coords
-#      if(sum(x0[,1]<land1@xmin+border_size | x0[,1]>land1@xmax-border_size |
-#        x0[,2]<land1@ymin+border_size | x0[,2]>land1@ymax-border_size)>0){
-#        land1@thelandscape@data[i,3]=0
-#        land1@thelandscape@data[i,2]=1
-#      }
-#    }
-#  }
-#  ## display the landscape
-#  plot(land1)
+# 2. Load 'ggplot2' for plotting objects. Not include in the package
+# 3. load 'sf' for extra function on shapefiles
+# 4. load 'raster' for extra function on raster
+library("ggplot2")
+library("sf")
+library("raster")
+library("sp") # plotting require this package
+library("dplyr")
 
-## ----fig.width=8,fig.height=8,echo=FALSE---------------------------------
-data(maize_65)
-plot(maize.landscape)
+## ----loadLandscape------------------------------------------------------------
+data("sfMaize65")
 
-## ----fig.width=7,fig.height=7--------------------------------------------
-## generate the Voronoi tesselation
-land=simulateInitialPartition(n=200, prop=0.4, range=10,
-xmin=0, xmax=5000, ymin=0, ymax=5000)
-## generate receptors at the borders of Voronoi cells
-land2=simulateThickMargins(land, border_size=200, prob=0.5,
-mean_thickness=5, v_thickness=50)
-## display the landscape
-plot(land2)
+# PLOT ------------------------------------------------------------------------
+ggplot() + theme_minimal() +
+  scale_fill_manual(values = c("grey", "orange"),
+                    name = "Maize") +
+  geom_sf(data = sfMaize65,
+          aes(fill = as.factor(maize)))
 
-## ----eval=FALSE----------------------------------------------------------
-#  ## tuning parameters and variables
-#  nb_ind=100 ; time_min=1 ; time_max=61
-#  birth_dates=sample(time_min:time_max, size=nb_ind, replace=TRUE)
-#  life_expectancies=rep(20, nb_ind)
-#  toxic_gap=rep(15, nb_ind)
-#  ## generate exposed individuals
-#  ind=simulateIndividuals(land1, n=nb_ind, mintime=time_min,
-#                          maxtime=time_max, dob=birth_dates,
-#              life_duration=life_expectancies, toxic_threshold=toxic_gap)
-#  ## plot individuals in the landscape
-#  plot(land1,ind)
+## ---- echo=FALSE--------------------------------------------------------------
+sfMaize65$maize_GM<-sfMaize65$maize*c(0,0,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,0,1,0,1,0,1,0,0,1,0,1,0,0,0,0,0,1,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,0,0,0,0,0,1,0,0,0,1,1,0,0,0,0,0,1,0,0,0,1,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,1,0,0,0,0,0,1,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,0,0,0,0,0,0,0,1,0,0,0,0,0,0,0,0,1,0,0,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,1,0,0,1,0,0,0,0,0,0,0,0,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,1,1,0,0,0,1,0,0,0,0,0,0,0,0,1,0,0,0,0,0,1,0,0,0,0,1,0,1,0,0,0,0,0,1,0,0,0,0,0,0,0,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,0,0,0,0,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,1,0,0,0,0,0,1,0,0,0,1,1,0,0,1,0,0,1,0,0,0,0,0,0,1,0,0,0,0,0,0,1,0,0,0,0,0,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,1,1,0,0,0,0,1,0,0,1,0,0,0,0,0,1,0,0,0,0,0,1,1,0,0,0,0,0,0,0,0,0,0,0)
 
-## ----fig.width=8,fig.height=8,echo=FALSE---------------------------------
-plot(maize.landscape,maize.individuals)
+## ----select_GM, eval=FALSE----------------------------------------------------
+#  # Random 20% are GM field
+#  sfMaize65$maize_GM <- sfMaize65$maize * rbinom(n = nrow(sfMaize65), size = 1 , prob = 0.2)
 
-## ----fig.width=7,fig.height=7,eval=FALSE---------------------------------
-#  ## generate emission functions for every sources
-#  list_sources=getSPSources(land1)
-#  emitted_pollen=create.pollen.sources(length(list_sources),time_max)
-#  emitted_pollen=data.frame(t=emitted_pollen,
-#  row.names=row.names(list_sources))
-#  ## load precipitation data and restrict them to June and July 2013
-#  data(Precipitation)
-#  precip=Precipitation$RR[Precipitation$AN==2013 & (Precipitation$MOIS==6 | Precipitation$MOIS==7)]
-#  plot(1:61, precip, pch=19, xlab="Day", ylab="Rainfall intensity (in mm)")
+## ----add_GM-------------------------------------------------------------------
+# filter table to have only GM fields
+sfMaize65_GM <- sfMaize65[sfMaize65$maize_GM == 1,]
 
-## ----fig.width=7,fig.height=7,echo=FALSE---------------------------------
-data(Precipitation)
-precip=Precipitation$RR[Precipitation$AN==2013 & (Precipitation$MOIS==6 | Precipitation$MOIS==7)]
-plot(1:61, precip, pch=19, xlab="Day", ylab="Rainfall intensity (in mm)")
+## PLOT ------------------------------------------------------------------------ 
+plt_GM <- ggplot() + theme_minimal() +
+  scale_fill_manual(values = c("grey", "red"),
+                    name = "GM maize") +
+  geom_sf(data = sfMaize65,
+          aes(fill = as.factor(maize_GM))) 
+plt_GM +
+  geom_sf_text(data = sfMaize65_GM,
+                aes(label = label))
 
-## ----eval=FALSE----------------------------------------------------------
-#  ## compute concentration of pollen across space and time
-#  tox=toxicIntensity(objectL=land1, toxic_emission=emitted_pollen,
-#                  mintime=time_min, maxtime=time_max, size_raster=2^10,
-#              alpha=list(minalpha=0.1, maxalpha=0.95, covariate_threshold=30,
-#                                            simulate=FALSE, covariate=precip))
-#  ## display concentration of pollen at day 61
-#  plot(x=land1, time=61, objectT=tox)
+## ----addBuffer----------------------------------------------------------------
+squareFrame_sfMaize65 <- st_squared_geometry(list(sfMaize65), buffer = 200) 
 
-## ----fig.width=7,fig.height=7,echo=FALSE,eval=TRUE-----------------------
-tox<-array(0,c(61,1024,1024))
-tox[61,,]<-as.matrix(maize.toxicintensity61)
-attr(tox,"class") <- "ToxicIntensityRaster"
-plot(x=maize.landscape, time=61, objectT=tox)
+# PLOT ------------------------------------------------------------------------
+plt_GM +
+  geom_sf(data = squareFrame_sfMaize65, fill = NA)
 
-## ----eval=FALSE----------------------------------------------------------
-#  ind_impact=ecoToxic(land1, ind, tox, time_min, time_max,kin=4.19e-7, kout=0.1, deltat=0.1)
+## ----dispersal, cache=FALSE, warning=FALSE------------------------------------
+stack_dispersal <- brk_dispersal(sfMaize65_GM,
+                                 size_raster = 2^8,
+                                 kernel = "geometric",
+                                 kernel.options = list("a" =  -2.63),
+                                 squared_frame = squareFrame_sfMaize65)
 
-## ----fig.width=7,fig.height=7,eval=FALSE---------------------------------
-#  #plot(x=land1, y=ind_impact, time=30, objectT=tox)
-#  plot(x=land1, y=ind_impact, time=time_max, objectT=tox)
+# PLOT ------------------------------------------------------------------------
+raster::plot(stack_dispersal[[1:6]])
 
-## ----fig.width=7,fig.height=7,echo=TRUE----------------------------------
-plot(maize.landscape,maize.individuals,time=61,objectT=tox)
+## ----toBEremoved, echo = FALSE------------------------------------------------
+brk_emission <- function(sf, # geometry on which we applied the pollen emission pattern
+                        keyTime,
+                        key, # name of the column which is going to be created
+                        FUN # a function of timeline?
+    ){
+      if("stackTimeline" %in% colnames(sf)) {
+        stop("Please rename column 'stackTimeline' in sf object.")
+      }
+      # CREATE NEW COLUMN
+      sf[["key_temp"]] <- lapply(1:nrow(sf), FUN)
+      # check length with timeline
+      if(all(sapply(sf[[keyTime]], length) != sapply(sf[["key_temp"]], length))){
+        stop(paste0("element within list returned by FUN' has not the same length as list element of '", keyTime, "' column"))
+      }
+      # ADD StackTimeLine
+      stackTimeline = sort(unique(do.call("c", sf[[keyTime]])))
+      
+      sf[[key]] = lapply(1:nrow(sf), function(i){
+        index_matching = match(sf[[keyTime]][[i]], stackTimeline)
+        res = rep(0,length(stackTimeline))
+        res[index_matching] = sf[["key_temp"]][[i]]
+        return(res)
+      })
+      # /!\ REPLACE timeline
+      sf[[keyTime]] = lapply(1:nrow(sf), function(i) stackTimeline)
+      warning(paste("The column variable", keyTime, "may have changed"))
+      # remove "key_temp"
+      sf[["key_temp"]] = NULL
+  
+  return(sf)
+}
 
-## ----fig.width=7,fig.height=7,eval=FALSE---------------------------------
-#  temp=apply(ind_impact@intern_toxic,1,max)
-#  hist(temp, main="Real landscape", xlab="Maximum internal concentration",
-#  breaks=seq(0,max(temp)+5,5))
-#  abline(v=15,col=3)
+## ----addTimeline--------------------------------------------------------------
+sfMaize65_GM_Pollen <- brk_timeline(sf = sfMaize65_GM,
+                                     key = "timeline",
+                                     from = as.Date("01-07-2018", format = "%d-%m-%y"),
+                                     to = as.Date("01-09-2018", format = "%d-%m-%y"),
+                                     by = "days")
 
-## ----fig.width=8,fig.height=8,echo=FALSE---------------------------------
-temp=apply(maize.individuals@intern_toxic,1,max)
-hist(temp, main="Real landscape", xlab="Maximum internal concentration",
-breaks=seq(0,max(temp)+5,5))
-abline(v=15,col=3)
+## ----addPollenEmission--------------------------------------------------------
+# Profile of emission:
+data("maize.proportion_pollen")
+graphics::plot(maize.proportion_pollen, type= "l")
 
-## ----fig.width=7,fig.height=7,eval=FALSE---------------------------------
-#  ID=21
-#  plot(x=land1, y=ind_impact, objectT=tox, numind=ID)
+funTimePollen <- function(time){
+  density = runif(1, 7, 11)
+  pollen = rgamma(1, shape = 1.6, scale = 1 / (2 * 10 ^ -7))
+  nbr_days = length(time)
+  deb = sample(1:(nbr_days - length(maize.proportion_pollen)), 1)
+  end = (deb + length(maize.proportion_pollen) - 1)
+  pollen_emission <- rep(0, nbr_days)
+  pollen_emission[deb:end] <- as.numeric(pollen * density * maize.proportion_pollen)
+  return(pollen_emission)
+}
+
+# ADD Column EMISSION To 
+sfMaize65_GM_Pollen <- brk_emission(sf = sfMaize65_GM_Pollen,
+                                    keyTime = "timeline", # Length of the reference timeline
+                                    key = "EMISSION", # Name of the new column
+                                    # function over each line of sf
+                                    FUN = function(i){
+                                          funTimePollen(sfMaize65_GM_Pollen$timeline[[i]])
+                                    })
+
+## ----exposure, cache=FALSE----------------------------------------------------
+stackTimeline = seq(from = min(do.call("c", sfMaize65_GM_Pollen[["timeline"]])),
+                    to = max(do.call("c", sfMaize65_GM_Pollen[["timeline"]])),
+                    by = "days")
+
+stack_exposure <- brk_exposure(stack_dispersal,
+                               sfMaize65_GM_Pollen,
+                               key = "EMISSION", # Name of the new column
+                               keyTime = "timeline", # Length of the reference timeline
+                               loss = 0.1,
+                               beta = 0.2,
+                               quiet = TRUE)
+# PLOT ------------------------------------------------------------------------
+raster::plot(stack_exposure[[1:6]])
+
+## ----plot_outGM, error=TRUE---------------------------------------------------
+# A MULTIPOLYGON OUT OF GM FIELDS
+sfMaize65_outGM <- st_sf(geometry = st_difference(x = st_geometry(squareFrame_sfMaize65),
+                                                  y = st_union(st_geometry(sfMaize65_GM))))
+
+# POINTS OUT OF GM FIELDS
+gridPOINT_squareFrame <- st_make_grid(squareFrame_sfMaize65, n = 30, what = "centers") # grid n x n !!
+gridPOINT_outGM <- st_sf(geometry = st_intersection(x = st_geometry(gridPOINT_squareFrame),
+                                                    y = st_union(st_geometry(sfMaize65_outGM))))
+
+# PLOT ------------------------------------------------------------------------
+ggplot() + theme_minimal() +
+  geom_sf(data = sfMaize65_outGM, fill = "grey30") +
+  geom_sf(data = gridPOINT_outGM) # point out of GM field
+
+## ----plotExposure_outGM, error=TRUE-------------------------------------------
+# Create raster
+df_outGM = as.data.frame(raster::extract(x = stack_exposure,
+                                         y =  sf::as_Spatial(gridPOINT_outGM)))
+#colnames(df_outGM) = paste0("Time_", gsub("-", "\\1", stackTimeline))
+
+sf_outGM = st_as_sf(geometry = st_geometry(gridPOINT_outGM), df_outGM)
+
+# PLOT ------------------------------------------------------------------------
+ggplot() + theme_minimal() +
+  labs(title = paste("Exposure at", colnames(df_outGM)[40])) +
+  scale_color_continuous(low = "green", high = "red",
+                         trans = "log", name = "log scaled") +
+  geom_sf(data = sf_outGM,
+          aes(color = df_outGM[,40]))
+
+## ----defineReceptor-----------------------------------------------------------
+# Margins around each fields
+sfMaize65_receptor = st_multibuffer(sfMaize65_GM,
+                                    dist = rep(100, nrow(sfMaize65_GM)))
+
+# PLOT ------------------------------------------------------------------------
+plt_GMreceptor <-
+  ggplot() + theme_minimal() +
+    geom_sf(data = sfMaize65_GM,
+            fill = "red") +
+    geom_sf(data = sfMaize65_receptor,
+            fill = "#669900")
+plt_GMreceptor
+
+## ----newInd-------------------------------------------------------------------
+# 1. Number of site for the first generation
+nbrSite = 100
+# 2. Set eggs
+sfLarvae <- brk_newPoints(sf = sfMaize65_receptor, size = nbrSite) # size = number of sites
+
+# PLOT ------------------------------------------------------------------------
+plt_GMreceptor +
+  geom_sf(data = sfLarvae)
+
+## ----lifeInd------------------------------------------------------------------
+DateEmergence = sample(seq(as.Date("01-07-2018", format = "%d-%m-%y"),
+                           as.Date("01-09-2018", format = "%d-%m-%y"), by = "days"),
+                      size = nbrSite,
+                      replace = TRUE)
+
+sfLarvae = brk_timeline( sf = sfLarvae,
+                         key = "Date",
+                         from = DateEmergence,
+                         to  =  DateEmergence + 20,
+                         by  = "days")
+
+## ----matchDate----------------------------------------------------------------
+stackTimelineEMISSION = sort(unique(do.call("c", sfMaize65_GM_Pollen[["timeline"]])))
+
+## ----computeExposure, warning=FALSE-------------------------------------------
+exposureINDIVIDUAL <- brk_exposureMatch(stackRaster_exposure = stack_exposure,
+                                        sf = sfLarvae,
+                                        stackTimeline = stackTimelineEMISSION,
+                                        keyTime = "Date",
+                                        key = "EXPOSURE")
+
+## ----computeDamage------------------------------------------------------------
+damageLethal = function(x,LC50, slope){
+      return(1/(1+(x/LC50)^slope))
+}
+
+LC50DR = 451*10^4
+slopeDR = -2.63
+
+damageINDIVIDUAL <- exposureINDIVIDUAL %>% 
+  dplyr::mutate(DAMAGE = lapply(EXPOSURE, function(expos){damageLethal(expos, LC50DR, slopeDR)}))
+
+## ----plotDamage---------------------------------------------------------------
+DFdamage = data.frame(
+  DAMAGE = do.call("c", damageINDIVIDUAL[["DAMAGE"]]),
+  Date = do.call("c", damageINDIVIDUAL[["Date"]]) ) %>%
+      dplyr::group_by(Date) %>%
+      dplyr::summarise(mean_DAMAGE = mean(DAMAGE, na.rm = TRUE),
+                       q025_DAMAGE = quantile(DAMAGE, probs = 0.025, na.rm = TRUE),
+                       q975_DAMAGE = quantile(DAMAGE, probs = 0.975, na.rm = TRUE),
+                       min_DAMAGE = min(DAMAGE, na.rm = TRUE),
+                       max_DAMAGE = max(DAMAGE, na.rm = TRUE))
+
+minDateDAMAGE = data.frame(Date = do.call("c", damageINDIVIDUAL[["Date"]]))
+
+ggplot() +
+  theme_minimal() +
+  labs(x = "Time", y = "Probability Distribution of Damage") +
+  geom_line(data = DFdamage,
+                 aes(x = Date, y = mean_DAMAGE), color = "red") +
+  geom_ribbon(data = DFdamage,
+              aes(x = Date, ymin = q025_DAMAGE, ymax = q975_DAMAGE), alpha = 0.5, color = NA, fill = "grey10") +
+  geom_ribbon(data = DFdamage,
+              aes(x = Date, ymin = min_DAMAGE, ymax = max_DAMAGE), alpha = 0.5, color = NA, fill = "grey90") 
 

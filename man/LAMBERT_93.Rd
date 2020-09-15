@@ -4,7 +4,9 @@
 \name{LAMBERT_93}
 \alias{LAMBERT_93}
 \title{LAMBERT_93}
-\format{An object of class \code{character} of length 1.}
+\format{
+An object of class \code{character} of length 1.
+}
 \usage{
 LAMBERT_93
 }

@@ -1,0 +1,33 @@
+Version 1.0.0
+=============
+
+SYSTEM REQUIREMENTS
+- Integration for the C++ 'Armadillo' Templated Linear Algebra Library, through 'RcppArmadillo' requires a fairly recent compiler; for the g++ family at least version 4.6.* is required. 
+
+
+NEW FEATURES
+- No more S4 class
+- 'getSpatialPolygons' has been removed since the landscape object we use is a 'SpatialPolygons' sp object. No more additional parameters.
+
+Version 0.1.2
+=============
+
+BUG FIXES
+- fix encoding trouble
+- update URL and links
+
+Version 0.1.1
+=============
+
+NEW INTERNAL FEATURES
+- add test  files: data, landscape and intern variable properties
+- add continuous integration with gitlab-ci
+
+BUG FIXES
+- fix bugs in data
+- move intern variabl to environment
+
+Version 0.1.0
+=============
+
+- Initial release.

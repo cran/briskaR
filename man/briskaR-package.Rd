@@ -13,14 +13,6 @@ The model is based on stochastic geometry for describing the landscape and the e
 a dispersal kernel for the dissemination of contaminants and an ecotoxicological equation.
 }
 \details{
-\tabular{ll}{
-         Package: \tab briskaR\cr
-         Type: \tab Package\cr
-         Version: \tab 0.1.2\cr
-         Date: \tab 2018-06-05\cr
-         License: \tab GPL (>=2)\cr
-         }
-
 The briskaR package contains functions and methods for quantifying spatio-temporal variation in contamination risk
 around known polygon sources of contaminants, and quantifies the impact of the contaminants on the surrounding population of individuals
 which are located in habitat areas and are susceptible to the contaminants.
@@ -28,30 +20,30 @@ which are located in habitat areas and are susceptible to the contaminants.
 The package implements an spatio-temporal exposure-hazard model based on (i) tools of stochastic geometry (marked polygon and point processes)
 for structuring the landscape and describing the location of exposed individuals,
 (ii) a method based on a dispersal kernel describing the dissemination of contaminant particles from polygon sources,
-and (iii) an ecotoxicological equation describing how contaminants affect individuals of the exposed population.
-}
-\examples{
-\dontrun{
-## Run a simulation
-library("briskaR")
-demo.pollen.run() 
-}
+and (iii) ecotoxicological equations describing how contaminants affect individuals of the exposed population.
 }
 \seealso{
-\code{\link{demo.pollen.run}}
+Useful links:
+\itemize{
+  \item \url{https://gitlab.paca.inrae.fr/biosp/briskaR}
+  \item Report bugs at \url{https://gitlab.paca.inrae.fr/biosp/briskaR/-/issues}
+}
+
 }
 \author{
-Emily Walker \email{emily.walker@inra.fr}
+Virgile Baudrot \email{virgile.baudrot@posteo.fr}
 
-Jean-Francois Rey \email{jean-francois.rey@inra.fr}
+Emily Walker \email{emily.walker@inrae.fr}
 
-Melen Leclerc \email{melen.leclerc@inra.fr}
+Jean-Francois Rey \email{jean-francois.rey@inrae.fr}
 
-Samuel Soubeyrand \email{Samuel.Soubeyrand@inra.fr}
+Melen Leclerc \email{melen.leclerc@inrae.fr}
 
-Marc Bourotte \email{marc.bourotte@inra.fr}
+Samuel Soubeyrand \email{Samuel.Soubeyrand@inrae.fr}
 
-Maintainer: Jean-Francois REY \email{jean-francois.rey@inra.fr}
+Marc Bourotte \email{marc.bourotte@inrae.fr}
+
+Maintainer: Jean-Francois REY \email{jean-francois.rey@inrae.fr}
 }
 \keyword{model}
 \keyword{spatial}

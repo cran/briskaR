@@ -3,9 +3,10 @@ note <- sprintf("R package version %s", meta$Version)
 
 bibentry(bibtype = "Manual",
          title = "{briskaR}: Biological Risk Assessment in R",
-         author = c(person("Emily", "Walker"),
+         author = c(person("Virgile", "Baudrot"),
+                    person("Emily", "Walker"),
                     person("Jean-François", "Rey"),
                     person("Melen", "Leclerc")),
-         year = year,
+         year = 2019,
          note = note,
          url = "https://cran.r-project.org/package=briskaR")
