@@ -2,8 +2,8 @@ Package: briskaR
 Type: Package
 Encoding: UTF-8
 Title: Biological Risk Assessment
-Version: 1.0.0
-Date: 2020-09-14
+Version: 1.0.1
+Date: 2020-11-27
 Authors@R: 
       c(person("Virgile", "Baudrot", role = "aut", email = "virgile.baudrot@posteo.net"),
         person("Emily", "Walker", role = "aut", email = "emily.walker@inrae.fr"),
@@ -37,14 +37,14 @@ BuildVignettes: True
 NeedsCompilation: yes
 VignetteBuilder: knitr
 Depends: methods, grDevices (>= 3.0.0), graphics (>= 3.0.0), stats (>=
-        3.0.2), R (>= 3.0.0)
+        3.0.2), R (>= 3.0.2)
 Imports: deldir(>= 0.1), deSolve, fasterize, fftwtools(>= 0.9.6),
         MASS(>= 7.3.29), mvtnorm(>= 1.0.2), raster(>= 2.3.0), Rcpp (>=
         1.0.0), rgdal (>= 0.9), rgeos(>= 0.3), sf (>= 0.7-1), sp (>=
         1.0-17)
-LinkingTo: testthat, Rcpp, RcppArmadillo
-Suggests: ggplot2, knitr, rmarkdown, dplyr, testthat (>= 1.0.0)
+LinkingTo: testthat (>= 3.0.0), Rcpp, RcppArmadillo
+Suggests: ggplot2, knitr, rmarkdown, dplyr, testthat (>= 3.0.0), xml2
 RoxygenNote: 7.1.1
-Packaged: 2020-09-15 08:03:00 UTC; root
+Packaged: 2020-11-27 14:51:41 UTC; root
 Repository: CRAN
-Date/Publication: 2020-09-15 17:10:14 UTC
+Date/Publication: 2020-12-01 00:30:23 UTC

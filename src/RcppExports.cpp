@@ -83,7 +83,7 @@ BEGIN_RCPP
 END_RCPP
 }
 
-RcppExport SEXP run_testthat_tests();
+RcppExport SEXP run_testthat_tests(SEXP);
 
 static const R_CallMethodDef CallEntries[] = {
     {"_briskaR_nigCpp", (DL_FUNC) &_briskaR_nigCpp, 9},
@@ -91,7 +91,7 @@ static const R_CallMethodDef CallEntries[] = {
     {"_briskaR_FatTailCpp", (DL_FUNC) &_briskaR_FatTailCpp, 4},
     {"_briskaR_studentCpp", (DL_FUNC) &_briskaR_studentCpp, 8},
     {"_briskaR_shift_fft_Cpp", (DL_FUNC) &_briskaR_shift_fft_Cpp, 1},
-    {"run_testthat_tests", (DL_FUNC) &run_testthat_tests, 0},
+    {"run_testthat_tests", (DL_FUNC) &run_testthat_tests, 1},
     {NULL, NULL, 0}
 };
 

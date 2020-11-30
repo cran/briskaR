@@ -1,4 +1,1 @@
-context("C++")
-test_that("Catch unit tests pass", {
-    expect_cpp_tests_pass("briskaR")
-})
+run_cpp_tests("briskaR")

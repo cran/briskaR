@@ -1,8 +1,8 @@
-bba0b11e8b48902b99d9b4e274d78e55 *DESCRIPTION
+dcfa8b963bc6935b72b72689a31ecf04 *DESCRIPTION
 b234ee4d69f5fce4486a80fdaf4a4263 *LICENSE
 e318a7cda9ed6b3f7d0b4e120615c21f *NAMESPACE
 fa83e62f40fff8311f12c04929de0845 *NEWS
-b6f78549ea75fa361cda4421ec75241b *R/0briskaR.R
+23c539acc0c488fc6437fbd0e7c23ec3 *R/0briskaR.R
 f3e19fe9dca42623331b12fe571e59d0 *R/Individuals_Methods.R
 e53df44d5e541801593c210fbd789833 *R/Landscape_Methods.R
 ea8047c50c8df3f4dc3f9907b8e4ee39 *R/RcppExports.R
@@ -13,6 +13,7 @@ bc446d1cd2c1d30123ba02da83316e9f *R/brk_FunctionalData.R
 9d1f25424c20ad17c9d84425aeb63a83 *R/brk_exposure.R
 1416fe77e43a9a3602eec6c7fa1c1de4 *R/brk_sampling.R
 d5f53032499935ec9d8c5b4c6bb1fb63 *R/brk_toxFunction.R
+4b9bc9c9df3034b5a5ab85cec90526c2 *R/catch-routine-registration.R
 785bb7ae4fc5ffa812a0be620ac653e0 *R/individuals_TKTD.R
 cdb4b65ca8af3a9da0af70f9a6d530ec *R/kernel.R
 2228e977ebea8966e27929f43e39cb67 *R/landscape_emission.R
@@ -21,7 +22,7 @@ f144e1fe388ca6ec7d265185b482329d *R/landscape_toxicIntensity.R
 10cea986e3f6b975a6788b3689df6296 *R/pollen_data.R
 195b1baa9c2d8723ab174ed41be86af7 *R/simulPrecip.R
 e796a6f99d2b28bf9cfd37be3c213aa6 *R/st_functions.R
-5cbe9243653385c1b23b7ea1bf54588b *build/vignette.rds
+234737ca1db358f615916119065eb003 *build/vignette.rds
 541ff08d56d0b9bf1eac61e90fc5ddf4 *data/Hofmann_2009.rda
 3e470c034082e96c46ce691a1b1b5984 *data/Lang_2004.rda
 6489375e5bd82eabfd4c1a5e4eb42422 *data/Precipitation.rda
@@ -34,7 +35,7 @@ ad37ba7b5b88bd7dcbb3cec088835013 *data/sfMaize65.rda
 57d0cb4bc0c6c41bcda9306a965c1a3e *inst/CITATION
 d183e10bd837e02452916aa7b6a03410 *inst/doc/demonstrations.R
 cc912ea0be49f26b7279eecd5f5ee24a *inst/doc/demonstrations.Rmd
-9ab6d5c5d924a05296347d1d98c30568 *inst/doc/demonstrations.html
+6c3f4cdacef62960fb375e88670b9f16 *inst/doc/demonstrations.html
 f37d47620e343c26725447956e37efa6 *man/GetInternProjection.Rd
 5cf5f2ce1ac0bd77059a5e0c6df636fe *man/LAMBERT_93.Rd
 f0814279ec27d65a303f9a7709320e27 *man/Landscape-load-sig-class.Rd
@@ -81,12 +82,13 @@ b0740e334c2b086cf604ea1cc33e286c *man/st_union.Rd
 27b5f4073b96433cf67b543337681c8e *man/toxicIntensity.Rd
 82543da2dfd6caa4bc6bc214d41b4719 *src/Makevars
 fa874b11ea27a837c4aa6684f8f118a5 *src/Makevars.win
-e04975a7f7c87e01e90472bd3f2e574d *src/RcppExports.cpp
+2fa077c6747d584fbe9f1b0f18e1b9c0 *src/RcppExports.cpp
 f445a416dfa7cd7d0b017a1f3d353f02 *src/kernel.cpp
 a909e14b90ddbefc81e8cee4b87aca71 *src/shift_fft.cpp
 c2cb0c30e10da611f9fbe56aea52f7a9 *src/test-runner.cpp
+c93f5612e5f25484826734bf7d26a523 *src/test-try.cpp
 40d9f8d7446bc98df9cfd3e3c0577030 *tests/testthat.R
-150652cae8c8982a78c075f4f5530bce *tests/testthat/test-cpp.R
+5256d8be54f444656d5b31f06d9aeb8d *tests/testthat/test-cpp.R
 d5ae355b428dfdc1c9d0f7c11e10aa2a *tests/testthat/test-data.R
 cee6505212e7fe12f2b50f27740b46c8 *tests/testthat/test-intern.R
 66cddcca540ac4842bbc7bfac3d2b70a *tests/testthat/test-kernel.R
