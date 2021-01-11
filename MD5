@@ -1,4 +1,4 @@
-dcfa8b963bc6935b72b72689a31ecf04 *DESCRIPTION
+69ffc696f8982ec87926c9ac721f6f1b *DESCRIPTION
 b234ee4d69f5fce4486a80fdaf4a4263 *LICENSE
 e318a7cda9ed6b3f7d0b4e120615c21f *NAMESPACE
 fa83e62f40fff8311f12c04929de0845 *NEWS
@@ -35,7 +35,7 @@ ad37ba7b5b88bd7dcbb3cec088835013 *data/sfMaize65.rda
 57d0cb4bc0c6c41bcda9306a965c1a3e *inst/CITATION
 d183e10bd837e02452916aa7b6a03410 *inst/doc/demonstrations.R
 cc912ea0be49f26b7279eecd5f5ee24a *inst/doc/demonstrations.Rmd
-6c3f4cdacef62960fb375e88670b9f16 *inst/doc/demonstrations.html
+ca6635761a5e7e85e63aa1add82eea93 *inst/doc/demonstrations.html
 f37d47620e343c26725447956e37efa6 *man/GetInternProjection.Rd
 5cf5f2ce1ac0bd77059a5e0c6df636fe *man/LAMBERT_93.Rd
 f0814279ec27d65a303f9a7709320e27 *man/Landscape-load-sig-class.Rd
