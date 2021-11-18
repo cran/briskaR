@@ -6,6 +6,11 @@
 
 using namespace Rcpp;
 
+#ifdef RCPP_USE_GLOBAL_ROSTREAM
+Rcpp::Rostream<true>&  Rcpp::Rcout = Rcpp::Rcpp_cout_get();
+Rcpp::Rostream<false>& Rcpp::Rcerr = Rcpp::Rcpp_cerr_get();
+#endif
+
 // nigCpp
 NumericVector nigCpp(NumericVector x, NumericVector y, double a1, double a2, double b1, double b2, double b3, double theta, double pi);
 RcppExport SEXP _briskaR_nigCpp(SEXP xSEXP, SEXP ySEXP, SEXP a1SEXP, SEXP a2SEXP, SEXP b1SEXP, SEXP b2SEXP, SEXP b3SEXP, SEXP thetaSEXP, SEXP piSEXP) {

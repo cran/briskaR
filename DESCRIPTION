@@ -2,8 +2,8 @@ Package: briskaR
 Type: Package
 Encoding: UTF-8
 Title: Biological Risk Assessment
-Version: 1.0.2
-Date: 2021-01-04
+Version: 1.0.3
+Date: 2021-11-12
 Authors@R: 
       c(person("Virgile", "Baudrot", role = "aut", email = "virgile.baudrot@posteo.net"),
         person("Emily", "Walker", role = "aut", email = "emily.walker@inrae.fr"),
@@ -44,7 +44,7 @@ Imports: deldir(>= 0.1), deSolve, fasterize, fftwtools(>= 0.9.6),
         1.0-17)
 LinkingTo: testthat (>= 3.0.0), Rcpp, RcppArmadillo
 Suggests: ggplot2, knitr, rmarkdown, dplyr, testthat (>= 3.0.1), xml2
-RoxygenNote: 7.1.1
-Packaged: 2021-01-04 15:32:55 UTC; root
+RoxygenNote: 7.1.2
+Packaged: 2021-11-12 12:23:11 UTC; root
 Repository: CRAN
-Date/Publication: 2021-01-11 06:50:16 UTC
+Date/Publication: 2021-11-18 08:50:02 UTC
