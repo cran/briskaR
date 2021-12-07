@@ -117,7 +117,7 @@ brk_dispersal.sf <- function(object,
                               ncol = size_raster,
                               nrow = size_raster )
   # set specific patch_id!
-  object$patch_id <- as.numeric(rownames(object))
+  object$patch_id <- as.numeric(1:nrow(object))
   # 
   # As long as fasterize library does not fasterize for POITNS, we use the rasterize function of the raster library:
   if("sfc_POINT" %in% class(sf::st_geometry(object))){

@@ -12,7 +12,8 @@ brk_exposure(
   loss,
   beta,
   nbr_cores,
-  quiet
+  quiet,
+  unit
 )
 }
 \arguments{
@@ -32,6 +33,8 @@ list of raster by patch `RasterStack_dispersal`. See \link[sf]{sf} for details.}
 \item{nbr_cores}{integer. Set the number of cores to used for parallel computing.}
 
 \item{quiet}{boolean. Set `TRUE` to remove progress bar.}
+
+\item{unit}{default is meter \code{"m"}. but should be more generic: "any".}
 }
 \description{
 Compute exposure for a `RasterStack` class object from package `raster`

@@ -112,6 +112,7 @@ brk_exposureMatch <- function(stackRaster_exposure, sf, stackTimeline, keyTime =
 #' @param beta numeric. toxic adherence parameter between 0 and 1 (default = 0.4).
 #' @param nbr_cores integer. Set the number of cores to used for parallel computing.
 #' @param quiet boolean. Set `TRUE` to remove progress bar.
+#' @param unit default is meter \code{"m"}. but should be more generic: "any".
 #' 
 #' @export
 #' 
@@ -122,7 +123,8 @@ brk_exposure <- function(RasterStack_dispersal,
                          loss, ### to be removed once well integrated !!!
                          beta,
                          nbr_cores,
-                         quiet){
+                         quiet,
+                         unit){
   UseMethod("brk_exposure")
 }
 
@@ -135,7 +137,8 @@ brk_exposure.RasterStack <- function(RasterStack_dispersal,
                                      loss = NULL,
                                      beta = 0.4,
                                      nbr_cores = 1,
-                                     quiet=FALSE){
+                                     quiet=FALSE,
+                                     unit = "m"){
   
   # should also check ID?
   nbr_RasterStack <- length(RasterStack_dispersal@layers)
@@ -163,7 +166,12 @@ brk_exposure.RasterStack <- function(RasterStack_dispersal,
   # --- cell surface
   bbox <- RasterStack_dispersal@extent
   size_raster <- RasterStack_dispersal@ncols # should be equal to RasterStack_dispersal@ncols
-  cell_area <- ((bbox@xmax - bbox@xmin) * (bbox@ymax - bbox@ymin)) / ( RasterStack_dispersal@ncols * RasterStack_dispersal@nrows)
+  if(unit == "m"){
+    cell_area <- ((bbox@xmax - bbox@xmin) * (bbox@ymax - bbox@ymin)) / ( RasterStack_dispersal@ncols * RasterStack_dispersal@nrows)
+  } else{
+    cell_area <- raster::area(RasterStack_dispersal)[1] * 10^6 # convert km^2 to m^2
+  }
+  
   
   message("Step 1/2: Compute global spatio-temporal exposure profile... ", appendLF = T)
   #sf <- base::as.list(dplyr::select(sf, -patch_id))
